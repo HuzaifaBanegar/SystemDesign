@@ -1,0 +1,33 @@
+All modifications:
+
+-> First Iteration:
+1. All the attributes in seperate Builder class as Students class
+2. Simply create a Builder object in Client.main method and set all the required attributes.
+3. Create a Student object and pass the Builder object inside it.
+4. The validations are mentioned in Student constructor and after passing it, The Students object is created
+
+
+-> Second Iteration:
+1. Instead of creating Builder method manually outside, we created getBuilder method inside the Student class.
+    But since we need to call this method before creating Student, we made it static
+2. Then we created build method in Builder class (initially created seperate), and did validation there
+3. After passing validations, we returned new Student(this) , that is passed the Builder object inside student and invoked it.
+
+But, the problem is anyone can create student object without going through Builder class.
+Hence we make it private in next iteration
+
+-> Third Iteration:
+1. We made Student constructor private.
+2. Since it cannot be accessed in build() method of Builder class anymore, we moved Builder class into Student class
+    We made Builder class as Inner class to Student, as its usage was only to make Student class.
+3. By doing that, since getBuilder() method is static , we made Builder class as static too.
+4. Now inside the client.main() method:
+    - We created Student student = Student.getBuilder(), which created a Builder class before creating Student object
+    - Then chained the setter methods, like setName(), setAge() together to it.
+    - Since we are chaining them, we need to have a return type of these setter methods to Builder and inside after setting them, just return this.
+    - After all setting, we just call build() methods that creates the Student object
+    - This build will now have the validations, so that the validations are passed even before creating Student object.
+
+
+
+

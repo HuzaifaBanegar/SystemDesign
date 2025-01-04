@@ -1,4 +1,7 @@
-The Factory Design Pattern in Java provides an interface for creating objects. It allows subclasses to alter the type of objects that will be created. It can be implemented in various ways, such as a Simple Factory, Factory Method, or Abstract Factory. For simplicity, here’s an example using the Factory Method approach.
+The Factory Design Pattern in Java provides an interface for creating objects.
+It allows subclasses to alter the type of objects that will be created.
+It can be implemented in various ways, such as a Simple Factory, Factory Method, or Abstract Factory.
+For simplicity, here’s an example using the Factory Method approach.
 
 Key Components
 Product Interface: Defines the interface for objects created by the factory.

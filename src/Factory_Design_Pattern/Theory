@@ -1,0 +1,82 @@
+The Factory Design Pattern in Java provides an interface for creating objects. It allows subclasses to alter the type of objects that will be created. It can be implemented in various ways, such as a Simple Factory, Factory Method, or Abstract Factory. For simplicity, here’s an example using the Factory Method approach.
+
+Key Components
+Product Interface: Defines the interface for objects created by the factory.
+Concrete Products: Implementations of the product interface.
+Factory Interface: Defines the method for creating products.
+Concrete Factory: Implements the factory interface to create specific product instances.
+Client: Uses the factory to obtain products.
+
+Example Code
+Here's a simple example to illustrate the Factory Method Pattern
+-----------------------------------------------------------------------
+Step 1: Define the Product Interface
+public interface Shape {
+    void draw();
+}
+-----------------------------------------------------------------------
+Step 2: Implement Concrete Products
+public class Circle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+public class Square implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Square");
+    }
+}
+-----------------------------------------------------------------------
+Step 3: Create the Factory Interface
+public interface ShapeFactory {
+    Shape createShape();
+}
+-----------------------------------------------------------------------
+Step 4: Implement Concrete Factories
+public class CircleFactory implements ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Circle();
+    }
+}
+
+public class SquareFactory implements ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Square();
+    }
+}
+-----------------------------------------------------------------------
+Step 5: Client Code
+public class FactoryPatternDemo {
+    public static void main(String[] args) {
+        ShapeFactory circleFactory = new CircleFactory();
+        Shape circle = circleFactory.createShape();
+        circle.draw();  // Output: Drawing a Circle
+
+        ShapeFactory squareFactory = new SquareFactory();
+        Shape square = squareFactory.createShape();
+        square.draw();  // Output: Drawing a Square
+    }
+}
+-----------------------------------------------------------------------
+
+Explanation
+-Shape Interface: Declares a method draw(), which all concrete shapes will implement.
+-Concrete Classes (Circle/Square): Implement the Shape interface and provide their own version of the draw() method.
+-ShapeFactory Interface: Declares a factory method createShape() for creating shapes.
+-Concrete Factories (CircleFactory/SquareFactory): Implement the ShapeFactory interface and provide specific implementations for creating Circle and Square objects.
+-Client Code: The FactoryPatternDemo class demonstrates how to use the factory to create shapes without needing to know their specific classes.
+
+When to Use the Factory Pattern?
+-When you want to decouple your application from specific classes and let the factory handle the object creation.
+-When your application needs to work with various types of objects based on user input or other criteria.
+-To promote code reusability and maintainability by Centralizing object creation logic.
+
+Benefits
+-Encapsulation of Creation Logic: The factory encapsulates the logic for creating objects, making it easier to manage.
+-Loose Coupling: The client code works with the interface, not the concrete classes, which leads to flexible and maintainable code.
+-Ease of Extensions: New product types can be added easily by implementing the interface and creating a new factory without modifying existing code.

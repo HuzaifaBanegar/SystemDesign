@@ -1,0 +1,113 @@
+The Prototype pattern is a creational design pattern that allows cloning of an object without exposing the details of its creation.
+Instead of creating new instances of objects directly, you create a prototype object that can produce copies of itself.
+This is particularly useful when the cost of creating a new instance of an object is higher than copying an existing one.
+
+Key Concepts:
+-Cloning: The core of the Prototype pattern is the ability to clone objects. This can be shallow (copying the object reference of contained objects) or deep (creating new instances of contained objects as well).
+-Prototype Interface: Usually, this involves defining a Prototype interface with a method like clone().
+-Concrete Prototypes: Classes that implement the Prototype interface represent the objects that can be cloned.
+
+Benefits:
+-Reduces the overhead of creating new instances.
+-Increases flexibility in the object creation process.
+-Simplifies the code for creating sets of related objects.
+
+Example code:
+// Prototype Interface  - Using generics to make sure this clone interface is implemented by many class
+interface Prototype <T>{
+    T clone();
+}
+
+// Concrete Prototype A
+class ConcretePrototypeA implements Prototype {
+    private int value;
+
+    public ConcretePrototypeA(int value) {
+        this.value = value;
+    }
+
+    // Implementing the clone method
+    @Override
+    public ConcretePrototypeA clone() {
+        return new ConcretePrototypeA(this.value);
+    }
+
+}
+
+// Concrete Prototype B
+class ConcretePrototypeB implements Prototype {
+    private String name;
+
+    public ConcretePrototypeB(String name) {
+        this.name = name;
+    }
+
+    // Implementing the clone method
+    @Override
+    public ConcretePrototypeB clone() {
+        return new ConcretePrototypeB(this.name);
+    }
+
+}
+
+// Usage
+public class PrototypePatternExample {
+    public static void main(String[] args) {
+        ConcretePrototypeA prototypeA = new ConcretePrototypeA(42);
+        ConcretePrototypeA cloneA = (ConcretePrototypeA) prototypeA.clone();
+
+        ConcretePrototypeB prototypeB = new ConcretePrototypeB("PrototypeB");
+        ConcretePrototypeB cloneB = (ConcretePrototypeB) prototypeB.clone();
+
+        System.out.println("Original: " + prototypeA);
+        System.out.println("Clone: " + cloneA);
+        System.out.println("Original: " + prototypeB);
+        System.out.println("Clone: " + cloneB);
+    }
+}
+
+Registry Design Pattern in Java
+The Registry pattern is used to manage instances of classes, allowing retrieval by identifiers without needing to know the exact class details.
+
+Key Components:
+-Registry Class: Manages the instances and provides methods to register and get instances.
+-Client Code: Interacts with the registry.
+
+Code Example:
+import java.util.HashMap;
+import java.util.Map;
+
+// Registry Class
+class Registry {
+    private static Map<String, Prototype> instances = new HashMap<>();
+
+    // Register an instance
+    public static void register(String identifier, Prototype instance) {
+        instances.put(identifier, instance);
+    }
+
+    // Retrieve an instance
+    public static Prototype get(String identifier) {
+        return instances.get(identifier).clone(); // Return a clone of the instance
+    }
+}
+
+// Usage
+public class RegistryPatternExample {
+    public static void main(String[] args) {
+        // Registering prototypes
+        Registry.register("serviceA", new ConcretePrototypeA(10));
+        Registry.register("serviceB", new ConcretePrototypeB("PrototypeB"));
+
+        // Getting instances from Registry
+        ConcretePrototypeA serviceA = (ConcretePrototypeA) Registry.get("serviceA");
+        ConcretePrototypeB serviceB = (ConcretePrototypeB) Registry.get("serviceB");
+
+        System.out.println("Retrieved: " + serviceA);
+        System.out.println("Retrieved: " + serviceB);
+    }
+}
+
+Summary
+-Prototype Pattern involves cloning objects to create new instances without needing their constructors, keeping the implementation details hidden.
+-Registry Pattern centralizes the management of object instances, allowing for easy retrieval by identifiers while promoting decoupling and dynamic object management.

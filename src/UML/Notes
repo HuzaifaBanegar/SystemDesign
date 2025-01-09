@@ -1,0 +1,127 @@
+Words are ways of communication by software engineer, but it may lead to:
+- Ambiguity / Misunderstanding,
+- Difficult to explain complex scenarios.
+So, we proceed to explain using pictures and diagram, which can make communication:
+- Less ambiguous,
+- Easier to explain complex scenarios.
+But, the problem is :
+- There is no standardization, that is different way of drawing by different people.
+
+----------------------------------------------------------------------------------------
+
+UML: Unified Modelling Language
+- Provides Standardization on how to represent different SWE concepts using diagrams.
+
+----------------------------------------------------------------------------------------
+
+Types of UML Diagram:
+- Structural : How to structure your codebase.
+- Behavioural : Behaviour of different features.
+
+Structural:
+- Class Diagram (Commonly used/ Imp): Different classes in the system and relationship between them.
+- Package Diagram
+- Component Diagram (rarely used): Home work
+- Object Diagram
+
+Behavioural:
+- Use case diagram (Commonly used)
+- Activity Diagram
+- Sequence Diagram
+
+----------------------------------------------------------------------------------------
+
+A) Use Case Diagram->
+* Keywords:
+1. System boundaries: (shape:rectangle)
+2. Use case: features/ actions/ functionality / verb. (shape:oval)
+3. Actor : People / System, who use a particular use case. (shape: man / sticks)
+
+        ____________________
+  o    |                    |
+ /|\ ----> (checkout)       |
+ / \   |                    |
+ user  |                    |
+       |____________________|
+
+ 4. Includes: Talks about different things that needs to be done whole using features (shape : arrow between two ovals with label include)
+
+             includes
+ (checkout) ---------> (fill address)
+            | includes
+            ----------> (make Payment)
+
+ 5. Extends: If one feature has many variants
+
+          extends
+  (login) ---------> (google login)
+          | extends
+          ---------> (username)
+
+----------------------------------------------------------------------------------------
+
+B) Class Diagram
+1. Represent different entities in software system:
+- Classes
+- Abstract classes
+- Interfaces
+- enums
+
+They represent relationship between entities:
+- Imp interfaces / external classes
+- One class inside another class
+
+* How to draw?
+1.Classes:
+-Name
+-attribute
+-method
+
+i) Attributes:
+- <access modifier> <name> : <data type>
+- public -> "+"
+- private -> "-"
+- protected -> "#"
+
+ii) Methods:
+- name (data type / args) <return type>
++ changeBatch (String src, String dest) : void
+
+Example, taking all the above:
+
+--------------------------------------------
+Student (class name)
+--------------------------------------------
+- age : int (attributes)
+- name : String
++ gradYear : String
+--------------------------------------------
++ changeBatch ( String, String) : void
+--------------------------------------------
+
+2. Interface
+
+<<FlyAble>> ( name )
+----------------------
++ something : int (attributes)
+----------------------
++ fly() : void (methods)
+
+3. Abstract Classes: Same rule as classes , but represnted using "Italics"
+
+4. Enums:
+
+AnimalType
+----------------------
+BIRD, MAMMALS, REPTILE
+
+----------------------------------------------------------------------------------------
+
+** Relationships between entities:
+1. Inheritance ( is - a relationship) : parent-child
+2. Association ( has - a relationship):
+It have two types:
+a. Composition: Relation between two classes A & B, where B cannot co-exist without A , example assignment and class
+b. Aggregation: relation b.w 2 classes where both the classes have independednt existence, example ticket and show
+ (if ticket gets invalid, show goes on)
+

@@ -1,0 +1,7 @@
+
+Methodology:
+
+- Main client class (example google) where we want to extract the type of path we want (that is bike, car, walk etc)
+- Get the path class through factory method ( PathCalculatorFactory )
+- Initialize one common interface which will be implemented by all these classes ( PathCalculator strategy )
+- Now implement this interface by all the path to get the path.

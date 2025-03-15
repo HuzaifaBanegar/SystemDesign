@@ -7,13 +7,10 @@ public class Client {
            System.out.println(Thread.currentThread().getName() + " - " + dbConnection);
        };
 
-       Thread thread1 = new Thread(task);
-       Thread thread2 = new Thread(task);
-       Thread thread3 = new Thread(task);
-
-       thread1.start();
-       thread2.start();
-       thread3.start();
+       for(int i=0; i<5; i++){
+           Thread thread = new Thread(task);
+           thread.start();
+       }
 
     }
 }

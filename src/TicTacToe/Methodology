@@ -1,0 +1,123 @@
+➡️ Overview:
+    1. Know or Dont Know?
+        - Yes: Go to next step
+        - No: Ask interviewer to brief about what it is.
+    2. Entity Design / Complete working solution:
+        - Entity Design: Designing round
+        - Complete working solution: Machine coding round
+    3. Do we need to persist data?
+        - Yes: Database needed
+        - No: No database needed, only in code memory will be sufficient.
+
+➡️ Requirement Gathering for designing a tic tac toe:
+
+    1. Size of the board -> N x N
+    2. No of players -> N-1
+    3. Will there be a bot -> Yes
+    4. Only 1 bot is allowed per game
+    5. Bot will have different difficulty levels
+    6. Each player can choose their symbol at the start of the game. No 2 players can have the same symbol
+    7. Who will make the first move -> At the start of game we will randomize the list of player to start
+    8. Wo will win the game? A player wins the game if they can get their symbol all across a row / column / diagonal.
+    9. Game ends as soon as someone wins or there is a draw.
+    10. UNDO feature:
+        - Global UNDO
+        - Anyone can press the UNDO
+        - It would remove the latest move from the board
+        - We only allow UNDO for the last move
+        - The turn should go back to the player whose move was removed
+
+➡️ Class Diagram:
+    1. Nouns: For class names
+    2. Visualization: User journey
+        - Example for a parking lot
+       or a Physical structure
+        - Example designing a bike.
+    3. Entities
+    4. Design Patterns: Always think about design patter prior, as it might give you good start.
+        - Builder design patter : As we need validations, before creating class
+        - Singleton : Example, for logger or db instance
+        - Adapter
+        - Factory : When we have to create classes based on many types
+        - NOTE: DO NOT OVER ENGINEER
+
+   Classes
+    1. Game
+        - Board board
+        - List <Player> players
+        - Player winner
+        - Enum GameState
+        - Int nextPlayer move Index
+        - List <Move> moves
+
+    2. GameState
+        IN_PROGRESS, ENDED, DRAW, PAUSED
+
+    3. Player
+        - String name
+        - Char symbol
+        - Enum PlayerType ( Try avoiding boolean )
+
+    4. PlayerType
+        HUMAN, BOT
+
+    5. Bot extends Player
+        - Enum Difficulty
+
+    6. Difficulty
+        EASY, MEDIUM, HARD
+
+    7. Board
+        - Int size
+        - List<List<Cell>> cell
+
+    8. Cell
+        - Int row
+        - Int col
+        - Player player
+        - Enum CellState
+
+    9. CellState
+        EMPTY, FILLED, BLOCKED
+
+    10. Move
+        - Cell cell
+        - Player player
+
+➡️ Design Patterns to be used:
+    1. GameBuilder : Builder Design Patter - Validations required
+    2. WinningStrategy : Strategy Design Patter - For deciding Winner
+        - RowWinningStrategy , ColWinningStrategy, DiagonalWinningStrategy
+    3. BotPlayingStrategy : Strategy Design Patter - For decing level of Bot
+        - EasyBotPlayingStrategy, HardBotPlayingStrategy, DifficultyBotPlayingStrategy
+    4. BotplayingStrategyFactory : Factory Design Pattern - Depending upon difficulty bot will play
+
+➡️Winning Algorithm: A player wins the game if they gets the symbol accross a row/diagona/column
+
+    - Brute force method: O(N^3)
+
+    For each player P-
+    //For rows
+        for(int i=0; i<N; i++){
+            boolean flag = true;
+
+            for(int j=0; j<N; j++){
+                if(board[i][j] != Player.symbol){
+                    flag= false;
+                    break;
+                }
+            }
+
+            if(flag) return true;
+        }
+    // Similarly check of column and diagonals
+
+    - Only check for current Player: O(N^2)
+
+    - checkWinner (Player P, Cell C) : O(N)
+        if(row==col) check left diag
+        if(row+col = N-1) check right diag
+        check only for same row
+        check only for same col
+
+    - Maintain Hashmap for each row, col, and diagonal. If any one gets to N, they win: O(1)

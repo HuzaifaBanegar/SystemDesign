@@ -86,8 +86,8 @@
 
 ➡️ Design Patterns to be used:
     1. GameBuilder : Builder Design Patter - Validations required
-    2. WinningStrategy : Strategy Design Patter - For deciding Winner
-        - RowWinningStrategy , ColWinningStrategy, DiagonalWinningStrategy
+    2. WinningAlgorithmStrategy : Strategy Design Patter - For deciding Winning Algorithm
+        - ONSquareWinningAlgoStrategy , ONCubeWinningAlgoStrategy, O1WinningAlgoStrategy
     3. BotPlayingStrategy : Strategy Design Patter - For decing level of Bot
         - EasyBotPlayingStrategy, HardBotPlayingStrategy, DifficultyBotPlayingStrategy
     4. BotplayingStrategyFactory : Factory Design Pattern - Depending upon difficulty bot will play

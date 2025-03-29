@@ -90,7 +90,7 @@
         - ONSquareWinningAlgoStrategy , ONCubeWinningAlgoStrategy, O1WinningAlgoStrategy
     3. BotPlayingStrategy : Strategy Design Patter - For decing level of Bot
         - EasyBotPlayingStrategy, HardBotPlayingStrategy, DifficultyBotPlayingStrategy
-    4. BotplayingStrategyFactory : Factory Design Pattern - Depending upon difficulty bot will play
+    4. BotPlayingStrategyFactory : Factory Design Pattern - Depending upon difficulty bot will play
 
 ➡️Winning Algorithm: A player wins the game if they gets the symbol accross a row/diagona/column
 

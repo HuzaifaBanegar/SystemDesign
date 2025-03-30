@@ -50,7 +50,9 @@ public class Main {
             players.add(new Bot(botName, botSymbol, BotDifficultyLevel.EASY));
         }
 
-        Game game = gameController.createGame(size, players);
+        String winningStrategy = "ORDERONE";
+
+        Game game = gameController.createGame(size, players, winningStrategy);
 
         // I want to check the game status continuously
         // If I have it in progress
@@ -60,11 +62,23 @@ public class Main {
             System.out.println("This is your current board: ");
             gameController.displayBoard(game);
             gameController.executeGame(game);
+        }
 
-            game.setGameState(GameState.ENDED);
+        System.out.println("The game has ended!");
+
+        if(!game.getGameState().equals(GameState.DRAW)){
+            gameController.displayBoard(game);
+            System.out.println("The Winner is: "+game.getWinner().getName());
         }
 
 
 
     }
 }
+
+/* 1.5 hours
+Overview -> 2 min
+Requirement Gathering -> 10 - 15 min
+Class Diagram and coding models -> 15 min
+Time to complete code -> 1 hr
+ */

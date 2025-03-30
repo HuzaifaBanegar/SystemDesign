@@ -1,6 +1,9 @@
 package TicTacToe.models;
 
 import TicTacToe.Exceptions.InvalidGameConstructionParameterException;
+import TicTacToe.factories.GameWinningStrategyFactory;
+import TicTacToe.strategies.gameWinningStrategy.GameWinningStrategy;
+import TicTacToe.strategies.gameWinningStrategy.OrderOneGameWinningStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ public class Game {
     private GameState gameState;
     private int nextPlayerIndex;
     private List<Move> moves;
+    private GameWinningStrategy winningStrategy;
 
     private Game() {
 
@@ -19,6 +23,10 @@ public class Game {
 
     public static Builder getBuilder(){
         return new Builder();
+    }
+
+    public Player getWinner() {
+        return winner;
     }
 
     public void setBoard(Board board) {
@@ -49,6 +57,10 @@ public class Game {
         this.board.displayBoard();
     }
 
+    public void setWinningStrategy(GameWinningStrategy winningStrategy) {
+        this.winningStrategy = winningStrategy;
+    }
+
     public GameState getGameState() {
         return this.gameState;
     }
@@ -75,7 +87,10 @@ public class Game {
         moves.add(move);
 
         // then check if it's the winner
-
+        if(winningStrategy.isWinning(board, move.getCell(), toPlay)) {
+            gameState = GameState.ENDED;
+            winner = toPlay;
+        }
 
         //then increment the nextPlayer index and move on
         nextPlayerIndex++;
@@ -94,15 +109,16 @@ public class Game {
 
 
     public static class Builder {
-        private Board board;
+        private int size;
         private List<Player> players;
+        private GameWinningStrategy winningStrategy;
 
         private void validate() throws InvalidGameConstructionParameterException {
-            if(this.board.getSize() < 3){
+            if(size < 3){
                 throw new InvalidGameConstructionParameterException("the size of board cannot be less than 3");
             }
 
-            if(this.players.size() != this.board.getSize()-1){
+            if(this.players.size() != size-1){
                 throw new InvalidGameConstructionParameterException("the number of players in the game should be atleast board size-1");
             }
 
@@ -114,22 +130,29 @@ public class Game {
 
             // Create game
             Game game = new Game();
-            game.setBoard(board);
-            game.setPlayers(players);
             game.setGameState(GameState.IN_PROGRESS);
             game.setMoves(new ArrayList<>());
             game.setNextPlayerIndex(0);
+            game.setBoard(new Board(size));
+            game.setPlayers(players);
+            game.setWinningStrategy(new OrderOneGameWinningStrategy(size));
+
             return game;
         }
 
-        public Builder setBoard(Board board) {
-            this.board = board;
+        public Builder setSize(int size) {
+            this.size = size;
             return this;
 
         }
 
         public Builder setPlayers(List<Player> players) {
             this.players = players;
+            return this;
+        }
+
+        public Builder setWinningStrategy(String winningStrategy) {
+            this.winningStrategy = GameWinningStrategyFactory.getGameWinningStrategy(winningStrategy, size);
             return this;
         }
     }

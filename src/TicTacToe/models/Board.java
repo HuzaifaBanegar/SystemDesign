@@ -8,6 +8,7 @@ public class Board {
     private List<List<Cell>> board;
 
     public Board(int size) {
+        this.board = new ArrayList<>();
         this.size = size;
 
         for(int i=0; i<size; i++) {

@@ -10,10 +10,11 @@ import java.util.List;
 
 public class GameController {
 
-    public Game createGame(int size, List<Player> players){
+    public Game createGame(int size, List<Player> players, String winningStrategy){
         try {
             return Game.getBuilder()
-                    .setBoard(new Board(size))
+                    .setSize(size)
+                    .setWinningStrategy(winningStrategy)
                     .setPlayers(players).build();
         }catch (InvalidGameConstructionParameterException e){
             System.out.println(e.getMessage());

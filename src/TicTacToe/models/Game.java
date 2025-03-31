@@ -86,7 +86,8 @@ public class Game {
         // then update the list of move in the moves state
         moves.add(move);
 
-        // then check if it's the winner
+        // then check if it's the winner or a draw
+
         if(winningStrategy.isWinning(board, move.getCell(), toPlay)) {
             gameState = GameState.ENDED;
             winner = toPlay;
@@ -97,6 +98,7 @@ public class Game {
         nextPlayerIndex %= players.size();
 
     }
+
 
     public boolean validateMove(Move move) {
         int row = move.getCell().getRow();

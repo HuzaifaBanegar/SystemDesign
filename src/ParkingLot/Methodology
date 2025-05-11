@@ -1,0 +1,11 @@
+- Overview
+- Requirement gathering
+- Class Diagram
+-Schema Design
+-Implementation
+
+
+➡️OVERVIEW:
+    - No Database / Do not persist the data
+
+➡️REQUIREMENT:

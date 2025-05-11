@@ -1,0 +1,80 @@
+➡️Overview:
+1. what kind of system? Console input / apis
+2. mDo we need to persist data?  Yes, Relational DB as your database
+
+➡️Requirements:
+    1. Users should be able to book movie tickets
+    2. Bms should support multiple cities each city will have multiple theatres
+    3. Users should be allowed to select multiple seats when they want to book a ticket
+    4. Every theatre will have multiple screens and each screen will have multiple seats
+    5. Each screen can run and movie at a time
+    6. Seats can be of different types
+        A show is nothing but a Movie running in a particular theatre at a particular screen at a particular time
+    7. User books ticket for a particular show
+    8. User selects the city BMS lists down all the movies running in that city and once you select the movie,  BMS displays the
+        shows for the selected Movie
+    9. A user can book a maximum of 10 seats in one booking
+    10. No 2 users should be allowed to book the same seat for the same show
+    11. Price = Seat time + show (movie + time + type {IMAX, 2D, 3D, Dolby} + theatre+ ...)
+    12. Only Online payment through 3rd party api is available
+    13. BMS supports partial split payments
+    14. for every movie BMS will store the movie,  it's rating, cast, languages etc.
+    15. Each movie will have some features (2D, 3D, 4D, DOLBY, IMAX)
+
+➡️Class Diagram:
+    1. City
+        - id
+        - name
+        - List<Theatre>
+
+    2.Theatre
+        - id
+        - name
+        - List<Screen>
+        - address
+
+    3. Screen
+        - id
+        - name
+        - List<Feature>
+        - List<Seat>
+        - status
+
+    4. Feature
+        - 2D, 3D, IMAX
+
+    5. Seat
+        - id
+        - number
+        - row
+        - col
+        - SeatType
+
+    6. SeatType
+        - GOLD, SILVER, PLATINIUM
+
+    7. ShowSeat
+        - show_id
+        - seat_id
+        - status
+
+    8. ShowSeat Type
+        - Show
+        - ShowType
+        - Price
+
+    9. User
+        - id
+        - name
+        - email
+        - password
+        - age
+
+    10. Booking/Ticket
+        - id
+        - number
+        - status
+        - List<Payment>
+        - amount
+        - List<ShowsSeat>
+        - Show
